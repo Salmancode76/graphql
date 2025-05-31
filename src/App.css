@@ -1,38 +1,551 @@
-.App {
-  text-align: center;
+:root {
+  --dark-bg: #0d0a12;
+  --highlight: #b866ff;
+  --secondary-bg: #161022;
+  --accent: #9c2dfa;
+  --text-color: #dcd8e6;
+  --border-color: rgba(184, 102, 255, 0.2);
+  --card-shadow: 0 8px 25px rgba(0, 0, 0, 0.7);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+body {
+  background-color: var(--dark-bg);
+  color: var(--text-color);
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.bubble-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bubble {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(156, 45, 250, 0.06);
+  animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+  0% {
+      transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+      transform: translate(5vw, -10vh) scale(1.1);
+  }
+
+  66% {
+      transform: translate(-5vw, 5vh) scale(0.9);
+  }
+
+  100% {
+      transform: translate(0, 0) scale(1);
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.login-container {
+  max-width: 400px;
+  margin: 10vh auto;
+  background-color: var(--secondary-bg);
+  border-radius: 16px;
+  padding: 2.5rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+}
+
+h1,
+h2,
+h3 {
+  color: var(--highlight);
+  font-weight: 600;
+}
+
+.login-title {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  font-size: 2rem;
+}
+
+.input-group {
+  margin-bottom: 1.8rem;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.7rem;
+  color: rgba(220, 216, 230, 0.8);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+input {
+  width: 100%;
+  padding: 14px;
+  background-color: rgba(13, 10, 18, 0.8);
+  border: 1px solid rgba(156, 45, 250, 0.25);
+  border-radius: 8px;
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(156, 45, 250, 0.2);
+}
+
+.login-btn {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 20px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  box-shadow: 0 6px 15px rgba(156, 45, 250, 0.3);
+}
+
+.login-btn:hover {
+  background-color: #8921e1;
+  transform: translateY(-3px);
+}
+
+.error-message {
+  color: #f85fa7;
+  margin-top: 1.2rem;
+  text-align: center;
+  font-size: 0.95rem;
+  display: none;
+}
+
+/* Profile Page Styles */
+.profile-container {
+  display: none;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8rem 0;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 2.5rem;
+}
+
+.logo {
+  color: var(--highlight);
+  font-size: 1.7rem;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.logout-btn {
+  background-color: rgba(156, 45, 250, 0.1);
+  color: var(--highlight);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  padding: 9px 18px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background-color: rgba(156, 45, 250, 0.2);
+  transform: translateY(-2px);
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.avatar {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-color: var(--secondary-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  color: var(--accent);
+  margin-right: 2.5rem;
+  border: 4px solid var(--accent);
+  box-shadow: 0 5px 20px #9b2efa66;
+}
+
+.profile-info h1 {
+  font-size: 2.7rem;
+  margin-bottom: 0.7rem;
+}
+
+.profile-info p {
+  color: rgba(220, 216, 230, 0.8);
+  font-size: 1.2rem;
+}
+
+.stats-flex {
+  display: flex;
+  gap: 20px;
+  padding: 40px;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.stat_card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  width: 100%;
+  flex: 1;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat_card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.stat-card:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.8);
+}
+
+.stat_card h3 {
+  font-size: 1.25rem;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+}
+
+.stat_card h3 svg {
+  margin-right: 0.7rem;
+  color: var(--highlight);
+}
+
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: var(--highlight);
+  margin-bottom: 0.7rem;
+  text-shadow: 0 0 10px rgba(184, 102, 255, 0.3);
+}
+
+.stat-subtext {
+  color: rgba(220, 216, 230, 0.6);
+  font-size: 0.95rem;
+}
+
+.Graphs {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  width: 100vw; /* Full viewport width */
+  margin-left: calc(-50vw + 50%); /* Center and expand beyond container */
+  padding: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 2rem;
+  box-sizing: border-box;
+}
+
+/* Individual Graph Containers */
+.graph1, .graph2 {
+  display: flex;
+  width: 50%; /* Each graph takes 50% of the full viewport width */
+  justify-content: center;
+  margin-top: 0;
+}
+
+.graphs_section {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  justify-items: center;
+  background-color: var(--secondary-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--border-color);
+  width: 100%; /* Take full width of parent container */
+  max-width: none; /* Remove max-width constraint */
+  min-height: 600px; /* Ensure minimum height for large screens */
+}
+
+.graph_container {
+  display: flex;
+  width: 100%;
+  height: 500px; /* Increased height for better visibility */
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.graphs-section h2 {
+  margin-bottom: 1.8rem;
+  font-size: 1.8rem; /* Slightly larger for full-width layout */
+}
+
+.graph-tabs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.8rem;
+}
+
+.tab-btn {
+  background-color: rgba(13, 10, 18, 0.7);
+  color: var(--text-color);
+  border: 1px solid rgba(156, 45, 250, 0.2);
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  font-family: 'Outfit', sans-serif;
+}
+
+.tab-btn.active {
+  background-color: var(--accent);
   color: white;
+  border-color: var(--accent);
+  box-shadow: 0 4px 15px rgba(156, 45, 250, 0.3);
 }
 
-.App-link {
-  color: #61dafb;
+/* SVG Styles for Charts */
+.chart-container {
+  width: 100%;
+  height: 100%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.axis line,
+.axis path {
+  stroke: rgba(220, 216, 230, 0.1);
+}
+
+.axis text {
+  fill: rgba(220, 216, 230, 0.6);
+  font-size: 12px;
+  font-family: 'Outfit', sans-serif;
+}
+
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.progress-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.progress-bar-container {
+  flex-grow: 1;
+  height: 10px;
+  background-color: rgba(13, 10, 18, 0.6);
+  border-radius: 5px;
+  margin: 0 1.2rem;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--highlight));
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(156, 45, 250, 0.5);
+}
+
+.project-label {
+  width: 30%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+
+.project-score {
+  width: 15%;
+  text-align: right;
+  color: var(--highlight);
+  font-weight: bold;
+}
+
+/* Responsive Design for Full Width Layout */
+@media (max-width: 1200px) {
+  .Graphs {
+    padding: 1.5rem;
+    gap: 1.5rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .graphs_section {
+    min-height: 650px;
+  }
+  
+  .graph_container {
+    height: 450px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .Graphs {
+    padding: 1rem;
+    gap: 1rem;
+  }
+  
+  .graphs_section {
+    padding: 1.5rem;
+    min-height: 500px;
+  }
+  
+  .graph_container {
+    height: 400px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .graphs_section {
+    padding: 1.2rem;
+    min-height: 450px;
+  }
+  
+  .graph_container {
+    height: 350px;
+  }
+}
+
+/* Stack graphs vertically on tablets and mobile */
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .avatar {
+    margin-right: 0;
+    margin-bottom: 1.5rem;
+  }
+
+  .graph-tabs {
+    flex-wrap: wrap;
+  }
+
+  .stats-flex {
+    padding: 20px;
+    gap: 15px;
+  }
+
+  .stat_card {
+    padding: 15px;
+  }
+
+  /* Stack graphs vertically on mobile */
+  .Graphs {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    width: 100%;
+    margin-left: 0;
+    padding: 1rem;
+  }
+  
+  .graph1, .graph2 {
+    width: 100%;
+    margin-top: 0;
+  }
+  
+  .graphs_section {
+    width: 100%;
+    min-height: auto;
+  }
+  
+  .graph_container {
+    height: 450px;
+  }
+  
+  .graphs-section h2 {
+    font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .profile-header {
+    margin-bottom: 1.5rem;
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
+    font-size: 2.5rem;
+  }
+
+  .profile-info h1 {
+    font-size: 2rem;
+  }
+
+  .stats-flex {
+    padding: 15px;
+    gap: 10px;
+  }
+
+  .stat_card {
+    padding: 12px;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+  }
+
+  .graphs_section {
+    padding: 0.8rem;
+  }
+  
+  .graph_container {
+    
+    height: 300px;
+  }
+  #graph_container1{
+    min-height: 400px;
+  }
+  
+  .Graphs {
+    padding: 0.5rem;
   }
 }

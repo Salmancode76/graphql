@@ -1,13 +1,30 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import './Styles/index.css';
+import { BrowserRouter } from "react-router-dom";
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Particles from "./components/Particles";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <div style={{ width: "100%", height: "100vh", position: "relative" }}>
+      <Particles
+        particleColors={["#9b2efa", "#9b2efa"]}
+        particleCount={1000}
+        particleSpread={30}
+        speed={1.2}
+        particleBaseSize={1000}
+        moveParticlesOnHover={false}
+        alphaParticles={true}
+        disableRotation={true}
+      />
+      <BrowserRouter>
+        <App />
+        
+      </BrowserRouter>
+    </div>
   </React.StrictMode>
 );
 
